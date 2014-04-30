@@ -1,15 +1,15 @@
 package net.bohush.weather;
 
-import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class WeatherSnap {
-	private Calendar calendar;
+	private GregorianCalendar calendar;
 	private double temperature;
 	private int windSpeed;
 	private double precipitation;
 	
 	
-	public WeatherSnap(Calendar calendar, double temperature, int windSpeed, double precipitation) {
+	public WeatherSnap(GregorianCalendar calendar, double temperature, int windSpeed, double precipitation) {
 		super();
 		this.calendar = calendar;
 		this.temperature = temperature;
@@ -17,10 +17,10 @@ public class WeatherSnap {
 		this.precipitation = precipitation;
 	}
 	
-	public Calendar getCalendar() {
+	public GregorianCalendar getCalendar() {
 		return calendar;
 	}
-	public void setCalendar(Calendar calendar) {
+	public void setCalendar(GregorianCalendar calendar) {
 		this.calendar = calendar;
 	}
 	public double getTemperature() {
