@@ -30,8 +30,7 @@ public class WeatherPanel extends JPanel {
 	private double[][] precipitations = new double[years][snaps];
 	
 	public WeatherPanel() throws FileNotFoundException, ParseException {
-		String[] cities = {"Вінниця", "Дніпропетровськ", "Донецьк", "Житомир", "Запоріжжя", "Івано-Франківськ", "Київ", "Кіровоград", "Луганськ", "Луцьк", "Львів", "Миколаїв", "Одеса", "Полтава", "Рівне", "Сімферополь", "Суми", "Тернопіль", "Ужгород", "Харків", "Херсон", "Хмельницький", "Черкаси", "Чернівці", "Чернігів"};  
-		Scanner input = new Scanner(new BufferedInputStream(new FileInputStream(new File("tmp/" + cities[10] + ".csv"))), "UTF-8");
+		Scanner input = new Scanner(new BufferedInputStream(new FileInputStream(new File("tmp/Lviv.csv"))), "UTF-8");
 		ArrayList<WeatherSnap> list = new ArrayList<>();
 		while (input.hasNextLine()) {
 			String str = input.nextLine();
@@ -89,31 +88,46 @@ public class WeatherPanel extends JPanel {
 			temperatures[i][j] = weatherSnap.getTemperature();
 			windSpeeds[i][j] = weatherSnap.getWindSpeed();
 			precipitations[i][j] = weatherSnap.getPrecipitation();
-			/*System.out.println(weatherSnap);
-			System.out.println(i + "\t" + j + "\t" + temperatures[i][j] + "\t" + windSpeeds[i][j] + "\t" + precipitations[i][j]);*/
 		}
-		
-		for (int i = 0; i < years; i++) {
-			for (int j = 0; j < snaps; j++) {
-				//System.out.println((beginYear + i) + "\t" + (j / 4) + "\t" + temperatures[i][j] + "\t" + windSpeeds[i][j] + "\t" + precipitations[i][j]);
-			}
-		}
+
 
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponents(g);
+
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		int lineHeight = 120;
 		int top = 170;
+
+		g.setColor(Color.WHITE);
+		g.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
+		
+		g.drawString("Ціна поділки: 10°C", lineHeight, 60);
+		g.drawString("Температура повітря", 750, 60);
+		
+		//g.drawString("Ціна поділки: 15 мм", lineHeight, 60);
+		//g.drawString("Кількість опадів", 770, 57);
+		
+		//g.drawString("Ціна поділки: 5 м/с", lineHeight, 60);
+		//g.drawString("Швидкість вітру", 770, 60);
+		
+		g.drawString("© Viktor Bohush, bohush.net", 730, 1062);
+		g.drawString("Дані надані WEB-сайтом rp5.ua", 1315, 60);
+		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
+		g.drawString("Львів", 800, 35);
+		g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
 		
 		Color blueColor = new Color(0, 153, 204);
-		Color redColor = new Color(	255,48,48);
+		Color redColor = new Color(255, 48, 48);
+		Color violetColor = new Color(153, 102, 204);
+		Color greenColor = new Color(102, 255, 0);
 		for (int year = 0; year < 8; year++) {
 			g.setColor(Color.WHITE);
-			g.setFont(new Font("Monospaced", Font.BOLD, 24));
+			
 			g.drawString((beginYear + year) + "", 50, top + year * lineHeight + 7);
 			g.setColor(Color.DARK_GRAY);
 			for (int i = -60; i <= 60; i+= 30) {			
@@ -134,16 +148,15 @@ public class WeatherPanel extends JPanel {
 
 				
 			}
+			/*
 			
-			/*for (int i = 1; i < precipitations[year].length; i++) {
+			for (int i = 1; i < precipitations[year].length; i++) {
 			if(precipitations[year][i] == undefined) {
 				precipitations[year][i] = 0;
 			}
-			g.setColor(blueColor);
-			
+			g.setColor(violetColor);			
 			g.drawLine(lineHeight + (i - 1), top + year * lineHeight, lineHeight + (i - 1),  top + year * lineHeight - (int)(precipitations[year][i] * 2));
 			g.drawLine(lineHeight + i, top + year * lineHeight, lineHeight + i,  top + year * lineHeight - (int)(precipitations[year][i] * 2));
-
 			
 			}
 			
@@ -151,7 +164,7 @@ public class WeatherPanel extends JPanel {
 				if(windSpeeds[year][i] == undefined) {
 					windSpeeds[year][i] = 0;
 				}
-				g.setColor(blueColor);
+				g.setColor(greenColor);
 				
 				g.drawLine(lineHeight + i, top + year * lineHeight, lineHeight + i,  top + year * lineHeight - (int)(windSpeeds[year][i] * 6));
 
